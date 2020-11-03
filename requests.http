@@ -1,0 +1,36 @@
+POST http://localhost:8000/api/wilder/create HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Http Wilder 5",
+    "city": "Paris",
+    "skills":[
+        {"title":"express", "votes":5},
+        {"title":"mongo", "votes":12}
+    ]
+}
+
+###
+GET http://localhost:8000/api/wilder/retrieve HTTP/1.1
+
+###
+PUT http://localhost:8000/api/wilder/update HTTP/1.1
+content-type: application/json
+
+{
+    "_id": "5fa183ec8a1a1b2efe5b4508",
+    "name":"Http Wilder 950",
+    "city": "Berlin",
+    "skills":[
+        {"title":"express", "votes":5},
+        {"title":"mongo", "votes":12}
+    ]
+}
+
+###
+DELETE http://localhost:8000/api/wilder/delete HTTP/1.1
+content-type: application/json
+
+{
+    "_id": "5fa15fa843427ca86b86905f"
+}
