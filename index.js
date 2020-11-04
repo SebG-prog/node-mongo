@@ -31,7 +31,7 @@ app.post("/api/wilder/create", runAsyncWrapper(wildController.create))
 
 app.get("/api/wilder/retrieve", runAsyncWrapper(wildController.retrieve))
 
-app.put("/api/wilder/update", wildController.update)
+app.put("/api/wilder/update", runAsyncWrapper(wildController.update))
 
 app.delete("/api/wilder/delete", wildController.delete)
 

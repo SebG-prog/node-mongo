@@ -13,16 +13,10 @@ module.exports = {
     if (!result) res.json({ success: false, result: "No wilders found"})
     res.json({ sucess: true, result: result })
   },
-  update: (req, res) => {
-    WilderModel.updateOne({ _id: req.body._id }, req.body)
-      .then(result => {
-        if (!result) res.json({ success: false, result: "No such wilder exists" })
-
-        res.send({ success: true, result: result })
-      })
-      .catch(err => {
-        res.json({ success: false, result: err })
-      })
+  update: async (req, res) => {
+    const result = await WilderModel.updateOne({ _id: req.body._id }, req.body)
+    if (!result) res.json({ success: false, result: "No such wilder exists" })
+    res.send({ success: true, result: result })
   },
   delete: (req, res) => {
     WilderModel.deleteOne({ _id: req.body._id})
