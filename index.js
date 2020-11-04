@@ -16,13 +16,20 @@ mongoose.connect("mongodb://127.0.0.1:27017/wilderdb", {
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
+
+const runAsyncWrapper = (callback) => {
+  return (req, res, next) => {
+    callback(req, res, next).catch(next)
+  }
+}
+
 app.get("/", (req, res) => {
   res.send("Hello World!")
 })
 
-app.post("/api/wilder/create", wildController.create)
+app.post("/api/wilder/create", runAsyncWrapper(wildController.create))
 
-app.get("/api/wilder/retrieve", wildController.retrieve)
+app.get("/api/wilder/retrieve", runAsyncWrapper(wildController.retrieve))
 
 app.put("/api/wilder/update", wildController.update)
 
