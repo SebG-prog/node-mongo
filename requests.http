@@ -1,8 +1,10 @@
-POST http://localhost:8000/api/wilder/create HTTP/1.1
+@baseUrl = http://localhost:8000
+
+POST {{baseUrl}}/api/wilders HTTP/1.1
 content-type: application/json
 
 {
-    "name":"Http Wilder 10",
+    "name":"Http Wildreefzfeerss 1d1",
     "city": "Paris",
     "skills":[
         {"title":"express", "votes":5},
@@ -10,16 +12,19 @@ content-type: application/json
     ]
 }
 
-###
-GET http://localhost:8000/api/wilder/retrieve HTTP/1.1
+### GET
+GET {{baseUrl}}/api/wilders HTTP/1.1
+
+### Error 404
+GET {{baseUrl}}/api/wilders/blabla HTTP/1.1
 
 ###
-PUT http://localhost:8000/api/wilder/update HTTP/1.1
+@id=5fa291865e9f0935ad23c1c6
+PUT {{baseUrl}}/api/wilder/{{id}} HTTP/1.1
 content-type: application/json
 
 {
-    "_id": "5fa183ec8a1a1b2efe5b4508",
-    "name":"Http Wilder 950",
+    "name":"Bobby",
     "city": "Berlin",
     "skills":[
         {"title":"express", "votes":5},
@@ -28,9 +33,10 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/wilder/delete HTTP/1.1
+@id=5fa2d9cf5c38b8a8354e7c9f
+DELETE http://localhost:8000/api/wilder/{{id}} HTTP/1.1
 content-type: application/json
 
 {
-    "_id": "5fa15fa843427ca86b86905f"
+    "_id": "5fa274fb853003144f615957"
 }
