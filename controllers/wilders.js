@@ -1,8 +1,9 @@
 // controllers/wilders.js
-const WilderModel = require("../models/Wilder")
 const createError = require("http-errors")
 
-module.exports = {
+const WilderModel = require("../models/Wilder")
+
+const wildController = {
   create: async (req, res, next) => {
       await WilderModel.init()
       const wilder = new WilderModel(req.body)
@@ -27,3 +28,5 @@ module.exports = {
     })
   }
 }
+
+module.exports = wildController

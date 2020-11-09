@@ -1,10 +1,11 @@
 // index.js
-const express = require('express');
-const mongoose = require("mongoose")
-const app = express();
-const wildController = require("./controllers/wilders");
 const asyncHandler = require('express-async-handler');
 const createError = require('http-errors')
+const express = require('express');
+const mongoose = require("mongoose")
+const wildController = require("./controllers/wilders");
+
+const app = express();
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
