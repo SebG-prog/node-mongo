@@ -2,7 +2,9 @@
 const express = require('express');
 const mongoose = require("mongoose")
 const app = express();
-const wildController = require("./controllers/wilders")
+const wildController = require("./controllers/wilders");
+const asyncHandler = require('express-async-handler');
+const createError = require('http-errors')
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -16,23 +18,26 @@ mongoose.connect("mongodb://127.0.0.1:27017/wilderdb", {
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
+app.post("/api/wilders", asyncHandler(wildController.create))
 
-const runAsyncWrapper = (callback) => {
-  return (req, res, next) => {
-    callback(req, res, next).catch(next)
-  }
-}
+app.get("/api/wilders", asyncHandler(wildController.retrieve))
 
-app.get("/", (req, res) => {
-  res.send("Hello World!")
+app.put("/api/wilder/:_id", asyncHandler(wildController.update))
+
+app.delete("/api/wilder/:_id", asyncHandler(wildController.delete))
+
+app.use((req, res, next) => {
+  next(createError(404, "There is nothing there"))
 })
 
-app.post("/api/wilder/create", runAsyncWrapper(wildController.create))
+app.use((error, req, res, next) => {
+  if (error.name === 'MongoError' || error.code === 11000) {
+    res.status(400)
+    error.message =  "Named already used in DB"
+  }
 
-app.get("/api/wilder/retrieve", runAsyncWrapper(wildController.retrieve))
-
-app.put("/api/wilder/update", runAsyncWrapper(wildController.update))
-
-app.delete("/api/wilder/delete", wildController.delete)
+  res.status(error.status || 500)
+  res.json({ success: false, message: error.message, stack: error.stack})
+})
 
 app.listen(8000, () => console.log("Server started on port 8000"))

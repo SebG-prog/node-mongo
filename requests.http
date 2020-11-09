@@ -4,7 +4,7 @@ POST {{baseUrl}}/api/wilders HTTP/1.1
 content-type: application/json
 
 {
-    "name":"Http Wildreefzfeerss 1d1",
+    "name":"Bob",
     "city": "Paris",
     "skills":[
         {"title":"express", "votes":5},
@@ -19,8 +19,8 @@ GET {{baseUrl}}/api/wilders HTTP/1.1
 GET {{baseUrl}}/api/wilders/blabla HTTP/1.1
 
 ###
-@id=5fa291865e9f0935ad23c1c6
-PUT {{baseUrl}}/api/wilder/{{id}} HTTP/1.1
+@_id=5fa2d8ca1b68a3a5c7534d3f
+PUT {{baseUrl}}/api/wilder/{{_id}} HTTP/1.1
 content-type: application/json
 
 {
@@ -33,8 +33,8 @@ content-type: application/json
 }
 
 ###
-@id=5fa2d9cf5c38b8a8354e7c9f
-DELETE http://localhost:8000/api/wilder/{{id}} HTTP/1.1
+@_id=5fa3cfd295ab5016894410b5
+DELETE http://localhost:8000/api/wilder/{{_id}} HTTP/1.1
 content-type: application/json
 
 {
