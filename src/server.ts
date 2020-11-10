@@ -35,11 +35,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use((error: any, req: Request, res: Response) => {
   if (error.name === 'MongoError' || error.code === 11000) {
     res.status(400);
-    error.message = 'Named already used in DB';
+    res.json({ success: false, message: 'Named already used in DB' });
+  } else {
+    res.status(error.status || 500);
+    res.json({ success: false, message: error.message, stack: error.stack });
   }
-
-  res.status(error.status || 500);
-  res.json({ success: false, message: error.message, stack: error.stack });
 });
 
 app.listen(8000, () => console.log('Server started on port 8000'));
