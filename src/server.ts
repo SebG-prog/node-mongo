@@ -1,9 +1,10 @@
 // index.js
-const asyncHandler = require('express-async-handler');
-const createError = require('http-errors');
-const express = require('express');
-const mongoose = require('mongoose');
-const wildController = require('./controllers/wilders');
+import express, { Request, Response, NextFunction } from 'express';
+import asyncHandler from 'express-async-handler';
+import createError from 'http-errors';
+import mongoose from 'mongoose';
+
+import wildController from './controllers/wilders';
 
 const app = express();
 
@@ -27,11 +28,11 @@ app.put('/api/wilder/:_id', asyncHandler(wildController.update));
 
 app.delete('/api/wilder/:_id', asyncHandler(wildController.delete));
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   next(createError(404, 'There is nothing there'));
 });
 
-app.use((error, req, res, next) => {
+app.use((error: any, req: Request, res: Response) => {
   if (error.name === 'MongoError' || error.code === 11000) {
     res.status(400);
     error.message = 'Named already used in DB';
